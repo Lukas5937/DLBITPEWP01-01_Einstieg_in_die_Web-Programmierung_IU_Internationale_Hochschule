@@ -1,7 +1,14 @@
-import './App.css'
+import "./App.css";
+import { Outlet } from "react-router";
 
 function App() {
-  return <></>
+  return (
+    <>
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
-export default App
+export default App;
