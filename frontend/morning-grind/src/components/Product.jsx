@@ -24,10 +24,10 @@ export default function Product({ product }) {
   return (
     <div
       key={product.id}
-      className="max-w-64 cursor-pointer rounded-2xl bg-gray-50 p-8 hover:bg-gray-100"
+      className="flex h-full max-w-64 cursor-pointer flex-col rounded-2xl bg-gray-50 p-8 hover:bg-gray-100"
     >
       <h5
-        className={`text-5xl leading-14 tracking-wide italic ${productColorMap[product.id]} mb-6`}
+        className={`flex-1 text-5xl leading-14 tracking-wide italic ${productColorMap[product.id]} mb-6`}
       >
         {product.name.split(" ").map((word, index) => (
           <span key={index}>
