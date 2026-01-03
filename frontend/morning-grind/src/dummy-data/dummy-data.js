@@ -17,13 +17,23 @@ export const categories = [
   },
 ];
 
+const productInfo = {
+  origin: "Ethiopia",
+  roastLevel: "Medium",
+  flavorNotes: ["Chocolate", "Citrus", "Floral"],
+  processing: "Washed",
+  size: 500, // in grams
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+};
+
 export const products = [
   {
     id: 1,
     name: "Single Shot",
     price: 3.0,
     isOffer: true,
-    description: "Lorem ipsum dolor sit amet elit",
+    info: productInfo,
     category: "Espresso",
   },
   {
@@ -31,7 +41,7 @@ export const products = [
     name: "Double Shot",
     price: 4.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Espresso",
   },
   {
@@ -39,7 +49,7 @@ export const products = [
     name: "Long Black",
     price: 5.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet consectetur",
+    info: productInfo,
     category: "Espresso",
   },
   {
@@ -47,7 +57,7 @@ export const products = [
     name: "Ristretto",
     price: 3.5,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Espresso",
   },
 
@@ -56,7 +66,7 @@ export const products = [
     name: "Drip Coffee",
     price: 4.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet elit",
+    info: productInfo,
     category: "Filter",
   },
   {
@@ -64,7 +74,7 @@ export const products = [
     name: "Pour Over",
     price: 5.0,
     isOffer: true,
-    description: "Lorem ipsum dolor sit amet consectetur",
+    info: productInfo,
     category: "Filter",
   },
   {
@@ -72,7 +82,7 @@ export const products = [
     name: "French Press",
     price: 6.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Filter",
   },
   {
@@ -80,7 +90,7 @@ export const products = [
     name: "Aeropress",
     price: 5.5,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet elit",
+    info: productInfo,
     category: "Filter",
   },
 
@@ -89,7 +99,7 @@ export const products = [
     name: "Decaf Espresso",
     price: 3.5,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Decaf",
   },
   {
@@ -97,7 +107,7 @@ export const products = [
     name: "Decaf Filter",
     price: 4.5,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet consectetur",
+    info: productInfo,
     category: "Decaf",
   },
   {
@@ -105,7 +115,7 @@ export const products = [
     name: "Decaf Latte",
     price: 5.5,
     isOffer: true,
-    description: "Lorem ipsum dolor sit amet elit",
+    info: productInfo,
     category: "Decaf",
   },
   {
@@ -113,7 +123,7 @@ export const products = [
     name: "Decaf Cappuccino",
     price: 5.5,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Decaf",
   },
 
@@ -122,7 +132,7 @@ export const products = [
     name: "Cold Brew",
     price: 5.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Specials",
   },
   {
@@ -130,7 +140,7 @@ export const products = [
     name: "Flat White",
     price: 6.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet elit",
+    info: productInfo,
     category: "Specials",
   },
   {
@@ -138,7 +148,7 @@ export const products = [
     name: "Cortado",
     price: 4.5,
     isOffer: true,
-    description: "Lorem ipsum dolor sit amet consectetur",
+    info: productInfo,
     category: "Specials",
   },
   {
@@ -146,7 +156,7 @@ export const products = [
     name: "Macchiato",
     price: 5.0,
     isOffer: false,
-    description: "Lorem ipsum dolor sit amet",
+    info: productInfo,
     category: "Specials",
   },
 ];
