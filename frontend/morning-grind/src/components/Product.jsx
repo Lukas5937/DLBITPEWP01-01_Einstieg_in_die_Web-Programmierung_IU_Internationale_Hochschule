@@ -37,7 +37,14 @@ export default function Product({ product }) {
         ))}
       </h5>
       <p className="font-body mb-2 text-xs text-gray-400">
-        {product.description}
+        {product.info.origin}
+      </p>
+      <p className="font-body mb-2 text-xs text-gray-400">
+        {product.info.roastLevel} Roast, {product.info.processing}
+      </p>
+
+      <p className="font-body mb-2 text-xs text-gray-400">
+        {product.info.flavorNotes.join(", ")}
       </p>
       <p className="text-2xl">{product.price}€</p>
     </div>
