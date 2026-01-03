@@ -2,6 +2,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Product from "../../components/Product";
 import { categories, products } from "../../dummy-data/dummy-data";
+import { Link } from "react-router";
 
 export default function Catalogue() {
   return (
@@ -22,7 +23,9 @@ export default function Catalogue() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {products.map((product) =>
               product.category === category.name ? (
-                <Product key={product.id} product={product} />
+                <Link to={`/catalogue/${product.id}`}>
+                  <Product key={product.id} product={product} />
+                </Link>
               ) : null,
             )}
           </div>
