@@ -2,30 +2,15 @@ import Decaf from "../../../assets/images/categories/decaf.jpg";
 import Espresso from "../../../assets/images/categories/espresso.jpg";
 import Filter from "../../../assets/images/categories/filter.jpg";
 import Specials from "../../../assets/images/categories/specials.jpg";
+import { categories } from "../../../dummy-data/dummy-data";
 
 export default function Categories() {
-  const categories = [
-    {
-      id: 1,
-      name: "Espresso",
-      image: Espresso,
-    },
-    {
-      id: 2,
-      name: "Filter",
-      image: Filter,
-    },
-    {
-      id: 3,
-      name: "Decaf",
-      image: Decaf,
-    },
-    {
-      id: 4,
-      name: "Specials",
-      image: Specials,
-    },
-  ];
+  const categoryImages = {
+    Espresso: Espresso,
+    Filter: Filter,
+    Decaf: Decaf,
+    Specials: Specials,
+  };
 
   return (
     <section className="px-8 py-20">
@@ -34,7 +19,7 @@ export default function Categories() {
         {categories.map((category) => (
           <div key={category.id} className="group cursor-pointer">
             <img
-              src={category.image}
+              src={categoryImages[category.name]}
               alt={category.name}
               className="mb-4 h-96 w-full object-cover"
             />
