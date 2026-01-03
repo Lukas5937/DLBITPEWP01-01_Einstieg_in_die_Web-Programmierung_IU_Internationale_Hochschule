@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Product from "../../../components/Product";
 import { products } from "../../../dummy-data/dummy-data";
 
@@ -18,7 +19,9 @@ export default function Offers() {
         <div className="grid flex-2 grid-cols-3 gap-8">
           {products.map((product) =>
             product.isOffer ? (
-              <Product key={product.id} product={product} />
+              <Link to={`/catalogue/${product.id}`}>
+                <Product key={product.id} product={product} />
+              </Link>
             ) : null,
           )}
         </div>
