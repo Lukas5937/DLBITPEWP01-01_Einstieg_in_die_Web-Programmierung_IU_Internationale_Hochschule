@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import HeroImage from "../../../assets/images/hero.jpg";
 
 export default function Hero() {
@@ -12,9 +13,12 @@ export default function Hero() {
         <p className="font-body mb-8 text-lg text-gray-500">
           Premium specialty coffee to start your day right.
         </p>
-        <button className="font-body bg-black px-8 py-3 text-white uppercase transition hover:bg-gray-800">
+        <Link
+          to="/catalogue"
+          className="font-body bg-black px-8 py-3 text-white uppercase transition hover:bg-gray-800"
+        >
           Explore
-        </button>
+        </Link>
       </div>
       <div className="w-1/3">
         <img
