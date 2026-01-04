@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import Home from "./pages/home/Home.jsx";
 import Catalogue from "./pages/catalogue/Catalogue.jsx";
 import ProductDetail from "./pages/product-detail/ProductDetail.jsx";
+import Cart from "./pages/cart/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
         element: <Catalogue />,
       },
       { path: "catalogue/:productId", element: <ProductDetail /> },
+      { path: "cart", element: <Cart /> },
     ],
   },
 ]);
