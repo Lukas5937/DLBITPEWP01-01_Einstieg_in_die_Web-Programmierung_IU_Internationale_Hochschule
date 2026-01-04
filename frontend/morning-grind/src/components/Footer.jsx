@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 px-8 py-16">
+    <footer className="bg-indigo-50 px-8 py-16">
       <div className="mb-12 grid grid-cols-4 gap-12">
         <div>
           <h5 className="mb-4 font-bold">Morning Grind</h5>
