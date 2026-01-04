@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between px-8 py-6">
       <Link to="/">
-        <h1 className="text-2xl font-semibold">Morning Grind</h1>
+        <h1 className="font-display text-2xl font-semibold">Morning Grind</h1>
       </Link>
 
       <div className="font-body flex gap-8">

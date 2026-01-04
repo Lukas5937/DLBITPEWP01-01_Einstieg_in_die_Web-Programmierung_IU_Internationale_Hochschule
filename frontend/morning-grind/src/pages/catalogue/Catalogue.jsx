@@ -1,5 +1,3 @@
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import Product from "../../components/Product";
 import { categories, products } from "../../dummy-data/dummy-data";
 import { Link } from "react-router";
@@ -7,8 +5,6 @@ import { Link } from "react-router";
 export default function Catalogue() {
   return (
     <div className="font-display min-h-screen">
-      <Navbar />
-
       <section className="px-8 py-4">
         <p className="font-body mt-2 text-gray-500">
           Discover our full range of premium coffees and explore every flavor we
@@ -30,8 +26,6 @@ export default function Catalogue() {
           </div>
         </section>
       ))}
-
-      <Footer />
     </div>
   );
 }
