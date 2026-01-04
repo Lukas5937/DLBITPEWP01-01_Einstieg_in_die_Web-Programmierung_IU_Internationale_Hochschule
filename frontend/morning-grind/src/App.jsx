@@ -1,9 +1,10 @@
 import "./App.css";
-import { Outlet } from "react-router";
+import { Outlet, ScrollRestoration } from "react-router";
 
 function App() {
   return (
     <>
+      <ScrollRestoration />
       <main>
         <Outlet />
       </main>
