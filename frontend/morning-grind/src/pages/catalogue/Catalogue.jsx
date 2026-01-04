@@ -10,7 +10,6 @@ export default function Catalogue() {
       <Navbar />
 
       <section className="px-8 py-4">
-        <h1 className="text-4xl font-thin">Catalogue</h1>
         <p className="font-body mt-2 text-gray-500">
           Discover our full range of premium coffees and explore every flavor we
           offer.
@@ -18,7 +17,7 @@ export default function Catalogue() {
       </section>
 
       {categories.map((category) => (
-        <section key={category.id} className="max-w-7xl px-8 py-20">
+        <section key={category.id} className="max-w-7xl px-8 pt-8 pb-28">
           <h2 className="mb-12 text-4xl">{category.name}</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {products.map((product) =>
