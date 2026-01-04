@@ -23,7 +23,7 @@ export default function Navbar() {
         <Link to="/" className="text-gray-700 hover:text-black">
           Login
         </Link>
-        <Link to="/" className="text-gray-700 hover:text-black">
+        <Link to="/cart" className="text-gray-700 hover:text-black">
           Cart (0)
         </Link>
       </div>
