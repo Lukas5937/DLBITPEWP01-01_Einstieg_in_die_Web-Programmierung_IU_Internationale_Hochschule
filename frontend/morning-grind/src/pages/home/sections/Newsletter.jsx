@@ -1,3 +1,5 @@
+import Button from "../../../components/Button";
+
 export default function Newsletter() {
   return (
     <section className="py-32 text-center">
@@ -9,9 +11,7 @@ export default function Newsletter() {
           placeholder="Enter your email here"
           className="bg-gray-200 px-6 py-3"
         />
-        <button className="font-body bg-black px-8 py-3 text-white uppercase transition hover:bg-gray-800">
-          Subscribe
-        </button>
+        <Button>Subscribe</Button>
       </div>
     </section>
   );
