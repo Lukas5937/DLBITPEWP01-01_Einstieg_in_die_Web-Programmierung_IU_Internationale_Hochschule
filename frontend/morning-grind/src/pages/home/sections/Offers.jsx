@@ -4,7 +4,7 @@ import { products } from "../../../dummy-data/dummy-data";
 
 export default function Offers() {
   return (
-    <section className="px-8 py-20">
+    <section className="bg-gray-100 px-8 py-20">
       <div className="flex gap-12">
         <div className="flex-1">
           <h4 className="mb-6 text-3xl">Special Offers</h4>
