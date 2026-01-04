@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router";
 import { products } from "../../dummy-data/dummy-data";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import BackButton from "../../components/BackButton";
 import AmountSelector from "./components/AmountSelector";
 import ProductInfoTable from "./components/ProductInfoTable";
@@ -24,19 +22,15 @@ export default function ProductDetail() {
   if (!product) {
     return (
       <div className="font-display min-h-screen">
-        <Navbar />
         <div className="flex items-center justify-center px-8 py-40">
           <p className="text-xl text-gray-700">Product not found</p>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="font-display min-h-screen">
-      <Navbar />
-
       <article className="px-8 py-20">
         <BackButton />
 
@@ -89,8 +83,6 @@ export default function ProductDetail() {
           </section>
         </div>
       </article>
-
-      <Footer />
     </div>
   );
 }
