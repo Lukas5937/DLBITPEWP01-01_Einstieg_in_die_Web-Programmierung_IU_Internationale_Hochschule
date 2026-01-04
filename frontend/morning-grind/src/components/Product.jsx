@@ -27,7 +27,7 @@ export default function Product({ product }) {
       className="flex h-full max-w-64 cursor-pointer flex-col rounded-2xl bg-gray-50 p-8 hover:bg-gray-100"
     >
       <h5
-        className={`flex-1 text-5xl leading-14 tracking-wide italic ${productColorMap[product.id]} mb-6`}
+        className={`flex-1 text-5xl leading-14 font-semibold tracking-wide italic ${productColorMap[product.id]} mb-6`}
       >
         {product.name.split(" ").map((word, index) => (
           <span key={index}>
