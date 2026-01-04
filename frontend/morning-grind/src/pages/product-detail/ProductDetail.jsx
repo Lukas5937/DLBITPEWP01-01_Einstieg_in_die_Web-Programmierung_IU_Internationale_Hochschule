@@ -9,6 +9,7 @@ import ProductInfoTable from "./components/ProductInfoTable";
 import FlavourBadge from "./components/FlavourBadge";
 import Button from "../../components/Button";
 import ProductImagePlaceholder from "./components/ProductImagePlaceholder";
+import { productColorMap } from "../../helpers/ui-helpers";
 
 export default function ProductDetail() {
   const { productId } = useParams();
@@ -49,7 +50,9 @@ export default function ProductDetail() {
               </span>
             </div>
 
-            <h1 className="mb-2 text-6xl leading-tight font-semibold italic">
+            <h1
+              className={`mb-2 text-6xl leading-tight font-semibold italic ${productColorMap[product.id]}`}
+            >
               {product.name.split(" ").map((word, index) => (
                 <span key={index}>
                   {word}
