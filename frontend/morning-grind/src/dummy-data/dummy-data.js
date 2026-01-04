@@ -30,7 +30,7 @@ const productInfo = {
 export const products = [
   {
     id: 1,
-    name: "Single Shot",
+    name: "Single Shot Coffee",
     price: 3.0,
     isOffer: true,
     info: productInfo,
