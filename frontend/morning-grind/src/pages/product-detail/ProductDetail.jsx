@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { products } from "../../dummy-data/dummy-data";
 import BackButton from "../../components/BackButton";
-import AmountSelector from "./components/AmountSelector";
+import AmountSelector from "../../components/AmountSelector";
 import ProductInfoTable from "./components/ProductInfoTable";
 import FlavourBadge from "./components/FlavourBadge";
 import Button from "../../components/Button";
-import ProductImagePlaceholder from "./components/ProductImagePlaceholder";
+import ProductImagePlaceholder from "../../components/ProductImagePlaceholder";
 import { productColorMap } from "../../helpers/ui-helpers";
 
 export default function ProductDetail() {
@@ -59,7 +59,7 @@ export default function ProductDetail() {
               €{product.price.toFixed(2)}
             </p>
 
-            <p className="font-body mb-10 leading-relaxed text-gray-600">
+            <p className="font-body mb-10 leading-relaxed text-gray-700">
               {product.info.description}
             </p>
 
