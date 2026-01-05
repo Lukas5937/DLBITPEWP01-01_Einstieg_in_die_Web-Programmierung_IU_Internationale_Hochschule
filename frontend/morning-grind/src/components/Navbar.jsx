@@ -20,7 +20,7 @@ export default function Navbar() {
       </div>
 
       <div className="font-body flex gap-6">
-        <Link to="/" className="text-gray-700 hover:text-black">
+        <Link to="/auth" className="text-gray-700 hover:text-black">
           Login
         </Link>
         <Link to="/cart" className="text-gray-700 hover:text-black">
