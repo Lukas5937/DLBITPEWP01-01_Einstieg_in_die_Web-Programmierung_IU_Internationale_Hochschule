@@ -160,3 +160,54 @@ export const products = [
     category: "Specials",
   },
 ];
+
+export const cartData = [
+  {
+    productId: 1,
+    amount: 2,
+    name: "Single Shot Coffee",
+    price: 3.0,
+    category: "Espresso",
+    info: {
+      origin: "Ethiopia",
+      roastLevel: "Medium",
+      flavorNotes: ["Chocolate", "Citrus", "Floral"],
+      processing: "Washed",
+      size: 500,
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+  },
+  {
+    productId: 3,
+    amount: 1,
+    name: "Long Black",
+    price: 5.0,
+    category: "Espresso",
+    info: {
+      origin: "Ethiopia",
+      roastLevel: "Medium",
+      flavorNotes: ["Chocolate", "Citrus", "Floral"],
+      processing: "Washed",
+      size: 500,
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+  },
+  {
+    productId: 6,
+    amount: 3,
+    name: "Pour Over",
+    price: 5.0,
+    category: "Filter",
+    info: {
+      origin: "Ethiopia",
+      roastLevel: "Medium",
+      flavorNotes: ["Chocolate", "Citrus", "Floral"],
+      processing: "Washed",
+      size: 500,
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+  },
+];
