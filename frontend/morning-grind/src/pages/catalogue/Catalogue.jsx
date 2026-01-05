@@ -14,11 +14,11 @@ export default function Catalogue() {
     },
     Decaf: {
       color: "bg-violet-50",
-      info: "These coffees highlight origin character and clarity, designed for slow brewing methods that reveal every subtle note.",
+      info: "Carefully decaffeinated using gentle processes, these coffees retain complexity and sweetness without compromise.",
     },
     Specials: {
       color: "bg-slate-100",
-      info: "Carefully decaffeinated using gentle processes, these coffees retain complexity and sweetness without compromise.",
+      info: "Our specials feature rare lots, innovative processing, or seasonal releases — coffees that push boundaries and reward curiosity.",
     },
   };
 
