@@ -1,10 +1,12 @@
 import "./App.css";
-import { Outlet, ScrollRestoration } from "react-router";
+import { Outlet, ScrollRestoration, useLocation } from "react-router";
 import Navbar from "./components/Navbar";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 
 function App() {
+  const isAuthPage = useLocation().pathname.includes("/auth");
+
   return (
     <>
       <ScrollRestoration />
@@ -12,7 +14,7 @@ function App() {
       <main>
         <Outlet />
       </main>
-      <Newsletter />
+      {!isAuthPage && <Newsletter />}
       <Footer />
     </>
   );
