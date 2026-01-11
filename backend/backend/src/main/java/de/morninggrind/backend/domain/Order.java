@@ -1,6 +1,8 @@
 package de.morninggrind.backend.domain;
 
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -9,6 +11,6 @@ public class Order {
     private UUID id;
     private OffsetDateTime orderDate;
     private String status;
-    private float totalPrice;
+    private BigDecimal totalPrice;
     private Long userId;
 }
