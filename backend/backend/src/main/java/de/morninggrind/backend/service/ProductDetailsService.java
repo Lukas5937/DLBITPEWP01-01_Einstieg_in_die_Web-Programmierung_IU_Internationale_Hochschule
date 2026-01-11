@@ -1,13 +1,11 @@
 package de.morninggrind.backend.service;
 
-import de.morninggrind.backend.domain.Cart;
 import de.morninggrind.backend.domain.ProductDetails;
 import de.morninggrind.backend.repository.ProductDetailsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
