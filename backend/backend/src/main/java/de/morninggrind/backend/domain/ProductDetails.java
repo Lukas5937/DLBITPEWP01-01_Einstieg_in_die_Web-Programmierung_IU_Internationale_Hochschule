@@ -1,12 +1,12 @@
 package de.morninggrind.backend.domain;
 
 import lombok.Data;
-
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class ProductDetails {
-    private Long id;
+    private UUID id;
     private String origin;
     private String roastLevel;
     private String processing;

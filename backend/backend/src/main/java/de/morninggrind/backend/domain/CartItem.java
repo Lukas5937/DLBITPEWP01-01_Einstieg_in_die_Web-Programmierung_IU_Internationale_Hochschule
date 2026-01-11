@@ -1,10 +1,11 @@
 package de.morninggrind.backend.domain;
 
 import lombok.Data;
+import java.util.UUID;
 
 @Data
 public class CartItem {
-    private Long id;
+    private UUID id;
     private int quantity;
     private Long cartId;
     private Long productId;
