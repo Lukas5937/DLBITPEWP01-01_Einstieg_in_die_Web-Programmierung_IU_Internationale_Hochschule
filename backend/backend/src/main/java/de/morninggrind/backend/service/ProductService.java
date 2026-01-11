@@ -36,4 +36,21 @@ public class ProductService {
             throw new EntityNotFoundException("Product mit ID " + id + " nicht gefunden");
         }
     }
+
+    public Product update(UUID id, Product updatedProduct) {
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Product mit ID " + id + " nicht gefunden"
+                ));
+
+        existing.setName(updatedProduct.getName());
+        existing.setPrice(updatedProduct.getPrice());
+        existing.setActive(updatedProduct.isActive());
+        existing.setOffer(updatedProduct.isOffer());
+        existing.setCategoryId(updatedProduct.getCategoryId());
+
+        return productRepository.save(existing);
+
+    }
 }
+
