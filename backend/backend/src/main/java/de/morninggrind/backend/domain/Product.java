@@ -12,5 +12,5 @@ public class Product {
     private BigDecimal price;
     private boolean isActive;
     private boolean isOffer;
-    private Long categoryId;
+    private UUID categoryId;
 }

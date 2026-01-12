@@ -10,6 +10,6 @@ public class OrderItem {
     private UUID id;
     private int quantity;
     private BigDecimal priceAtPurchase;
-    private Long orderId;
-    private Long productId;
+    private UUID orderId;
+    private UUID productId;
 }
