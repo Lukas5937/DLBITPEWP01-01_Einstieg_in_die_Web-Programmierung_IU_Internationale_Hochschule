@@ -9,6 +9,5 @@ import java.util.UUID;
 public class Cart {
     private UUID id;
     private OffsetDateTime createdAt;
-    private Long userId;
-
+    private UUID userId;
 }

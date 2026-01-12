@@ -12,5 +12,5 @@ public class Order {
     private OffsetDateTime orderDate;
     private String status;
     private BigDecimal totalPrice;
-    private Long userId;
+    private UUID userId;
 }
