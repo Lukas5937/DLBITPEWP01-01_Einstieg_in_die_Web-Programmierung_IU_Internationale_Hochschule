@@ -1,13 +1,25 @@
 package de.morninggrind.backend.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
+@Entity
 public class CartItem {
+    @Id
+    @GeneratedValue
+    @Column(columnDefinition = "uuid")
     private UUID id;
+
     private int quantity;
-    private UUID cartId;
-    private UUID productId;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id", nullable = false)
+    private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 }
