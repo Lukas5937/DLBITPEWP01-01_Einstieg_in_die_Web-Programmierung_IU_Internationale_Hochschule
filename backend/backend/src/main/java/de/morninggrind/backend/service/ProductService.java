@@ -46,8 +46,7 @@ public class ProductService {
         existing.setPrice(updatedProduct.getPrice());
         existing.setActive(updatedProduct.isActive());
         existing.setOffer(updatedProduct.isOffer());
-        existing.setCategoryId(updatedProduct.getCategoryId());
-
+        existing.setCategory(updatedProduct.getCategory());
         return productRepository.save(existing);
     }
 }
