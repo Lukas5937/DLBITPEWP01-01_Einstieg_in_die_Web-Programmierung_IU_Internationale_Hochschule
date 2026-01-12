@@ -1,16 +1,25 @@
 package de.morninggrind.backend.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@Entity
 @Data
 public class Order {
+    @Id
+    @GeneratedValue
+    @Column(columnDefinition = "uuid")
     private UUID id;
+
     private OffsetDateTime orderDate;
     private String status;
     private BigDecimal totalPrice;
-    private UUID userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
