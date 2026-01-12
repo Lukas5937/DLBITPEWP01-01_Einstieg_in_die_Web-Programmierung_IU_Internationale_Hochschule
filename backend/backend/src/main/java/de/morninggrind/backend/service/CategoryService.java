@@ -36,4 +36,15 @@ public class CategoryService {
             throw new EntityNotFoundException("Category mit ID " + id + " nicht gefunden");
         }
     }
+
+    public Category update(UUID id, Category updatedCategory) {
+        Category existing = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Category mit ID " + id + " nicht gefunden"
+                ));
+        existing.setName(updatedCategory.getName());
+        existing.setDescription(updatedCategory.getDescription());
+        existing.setActive(updatedCategory.isActive());
+        return categoryRepository.save(existing);
+    }
 }

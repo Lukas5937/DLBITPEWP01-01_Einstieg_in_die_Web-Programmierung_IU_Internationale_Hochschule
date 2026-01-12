@@ -36,4 +36,13 @@ public class CartItemService {
             throw new EntityNotFoundException("CartItem mit ID " + id + " nicht gefunden");
         }
     }
+
+    public CartItem update(UUID id, CartItem updatedCartItem) {
+        CartItem existing = cartItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "CartItem mit ID " + id + " nicht gefunden"
+                ));
+        existing.setQuantity(updatedCartItem.getQuantity());
+        return cartItemRepository.save(existing);
+    }
 }

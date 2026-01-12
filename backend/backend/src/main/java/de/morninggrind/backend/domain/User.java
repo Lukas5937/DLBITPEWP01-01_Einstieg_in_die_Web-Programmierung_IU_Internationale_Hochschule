@@ -1,6 +1,7 @@
 package de.morninggrind.backend.domain;
 
 import lombok.Data;
+
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -14,5 +15,4 @@ public class User {
     private String role;
 
     private OffsetDateTime createdAt;
-
 }

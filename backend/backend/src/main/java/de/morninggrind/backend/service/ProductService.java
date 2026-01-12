@@ -42,7 +42,6 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Product mit ID " + id + " nicht gefunden"
                 ));
-
         existing.setName(updatedProduct.getName());
         existing.setPrice(updatedProduct.getPrice());
         existing.setActive(updatedProduct.isActive());
@@ -50,7 +49,6 @@ public class ProductService {
         existing.setCategoryId(updatedProduct.getCategoryId());
 
         return productRepository.save(existing);
-
     }
 }
 
