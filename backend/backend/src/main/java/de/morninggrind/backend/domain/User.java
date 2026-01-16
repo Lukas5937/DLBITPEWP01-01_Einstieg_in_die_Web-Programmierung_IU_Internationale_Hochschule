@@ -1,9 +1,6 @@
 package de.morninggrind.backend.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -11,6 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue
