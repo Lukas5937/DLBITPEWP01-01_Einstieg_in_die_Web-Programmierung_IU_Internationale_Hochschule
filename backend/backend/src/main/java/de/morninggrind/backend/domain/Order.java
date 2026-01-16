@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue
