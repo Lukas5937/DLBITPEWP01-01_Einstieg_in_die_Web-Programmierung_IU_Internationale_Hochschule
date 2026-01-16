@@ -10,8 +10,7 @@ import java.util.UUID;
 @Data
 public class Product {
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String name;

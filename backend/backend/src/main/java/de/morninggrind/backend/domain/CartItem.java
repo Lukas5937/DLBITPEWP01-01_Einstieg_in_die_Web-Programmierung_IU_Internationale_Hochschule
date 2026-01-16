@@ -9,8 +9,7 @@ import java.util.UUID;
 @Entity
 public class CartItem {
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private int quantity;

@@ -10,8 +10,7 @@ import java.util.UUID;
 @Data
 public class ProductDetails {
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String origin;
@@ -25,6 +24,6 @@ public class ProductDetails {
     private String description;
 
     @OneToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false, unique = true)
     private Product product;
 }
