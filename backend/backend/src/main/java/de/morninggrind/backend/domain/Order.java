@@ -2,6 +2,7 @@ package de.morninggrind.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -12,10 +13,11 @@ import java.util.UUID;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private OffsetDateTime orderDate;
     private String status;
     private BigDecimal totalPrice;
