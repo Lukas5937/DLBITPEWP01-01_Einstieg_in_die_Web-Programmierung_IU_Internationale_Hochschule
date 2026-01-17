@@ -2,20 +2,22 @@ package de.morninggrind.backend.service;
 
 import de.morninggrind.backend.domain.Cart;
 import de.morninggrind.backend.domain.User;
+import de.morninggrind.backend.repository.CartRepository;
 import de.morninggrind.backend.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, CartRepository cartRepository) {
         this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
     }
 
     public List<User> getAll() {
@@ -28,7 +30,13 @@ public class UserService {
     }
 
     public User save(User user) {
-        return this.userRepository.save(user);
+        User savedUser = this.userRepository.save(user);
+
+        Cart cart = new Cart();
+        cart.setUser(savedUser);
+        cartRepository.save(cart);
+
+        return savedUser;
     }
 
     public void delete(UUID id) {
