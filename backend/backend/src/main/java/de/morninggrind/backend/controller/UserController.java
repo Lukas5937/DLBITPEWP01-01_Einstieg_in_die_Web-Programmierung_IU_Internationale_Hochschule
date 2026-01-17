@@ -21,3 +21,11 @@ public class UserController {
         return this.userService.save(user);
     }
 }
+
+// muss noch angepasst werden
+
+// DTO (RegistrationRequest)
+// kein Passwort im Klartext
+// evtl. Validation
+
+// was ist mit Authorization? Json web token?

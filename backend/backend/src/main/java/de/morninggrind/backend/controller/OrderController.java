@@ -21,3 +21,5 @@ public class OrderController {
         return this.orderService.save(order);
     }
 }
+
+// order sollte aus Cart erzeugt werden!!

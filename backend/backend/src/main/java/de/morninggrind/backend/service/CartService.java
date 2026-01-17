@@ -36,7 +36,8 @@ public class CartService {
 
         List<CartItemDto> itemDtos = items.stream().map(item -> {
             CartItemDto dto = new CartItemDto();
-            ProductDetails details = productDetailsRepository.findByProduct(item.getProduct());
+            ProductDetails details = productDetailsRepository.findByProduct(item.getProduct())
+                    .orElseThrow(() -> new EntityNotFoundException("Details für Product " + item.getProduct() + " nicht gefunden"));
 
             dto.setProductId(item.getProduct().getId());
             dto.setProductName(item.getProduct().getName());
