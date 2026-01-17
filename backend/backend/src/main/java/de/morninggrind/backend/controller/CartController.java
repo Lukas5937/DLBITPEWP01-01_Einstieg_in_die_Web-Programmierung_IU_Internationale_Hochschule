@@ -1,6 +1,6 @@
 package de.morninggrind.backend.controller;
 
-import de.morninggrind.backend.domain.Cart;
+import de.morninggrind.backend.dto.CartResponseDto;
 import de.morninggrind.backend.service.CartService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class CartController {
     }
 
     @GetMapping("{id}")
-    public Cart getCart(@PathVariable UUID id) {
+    public CartResponseDto getCart(@PathVariable UUID id) {
         return this.cartService.getById(id);
     }
 
