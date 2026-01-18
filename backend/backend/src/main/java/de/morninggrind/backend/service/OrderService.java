@@ -1,8 +1,6 @@
 package de.morninggrind.backend.service;
 
-import de.morninggrind.backend.domain.Cart;
-import de.morninggrind.backend.domain.CartItem;
-import de.morninggrind.backend.domain.Order;
+import de.morninggrind.backend.domain.*;
 import de.morninggrind.backend.repository.CartItemRepository;
 import de.morninggrind.backend.repository.CartRepository;
 import de.morninggrind.backend.repository.OrderRepository;
@@ -19,20 +17,35 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final UserService userService;
 
-    public OrderService(OrderRepository orderRepository, CartRepository cartRepository, CartItemRepository cartItemRepository) {
+    public OrderService(OrderRepository orderRepository,
+                        CartRepository cartRepository,
+                        CartItemRepository cartItemRepository, UserService userService) {
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
+        this.userService = userService;
     }
 
     public List<Order> getAll() {
-        return this.orderRepository.findAll();
+        User currentUser = userService.getCurrentUser();
+        if (currentUser.getRole() == UserRole.ADMIN) {
+            return orderRepository.findAll();
+        }
+        return orderRepository.findByUser(currentUser);
     }
 
     public Order getById(UUID id) {
-        return orderRepository.findById(id)
+        Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Order mit ID " + id + " nicht gefunden"));
+
+        User currentUser = userService.getCurrentUser();
+        if (!order.getUser().equals(currentUser) && currentUser.getRole() != UserRole.ADMIN) {
+            throw new RuntimeException("Zugriff verweigert");
+        }
+
+        return order;
     }
 
     public Order save(Order order) {
@@ -40,11 +53,8 @@ public class OrderService {
     }
 
     public void delete(UUID id) {
-        if (orderRepository.existsById(id)) {
-            orderRepository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Order mit ID " + id + " nicht gefunden");
-        }
+        Order order = getById(id);
+        orderRepository.delete(order);
     }
 
     @Transactional
@@ -53,6 +63,12 @@ public class OrderService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart mit ID " + cartId + " nicht gefunden"
                 ));
+
+        User currentUser = userService.getCurrentUser();
+        if (!cart.getUser().equals(currentUser) && currentUser.getRole() != UserRole.ADMIN) {
+            throw new RuntimeException("Zugriff verweigert");
+        }
+
         List<CartItem> items = cartItemRepository.findByCart(cart);
 
         if (items.isEmpty()) {
@@ -77,4 +93,6 @@ public class OrderService {
 
         return savedOrder;
     }
+
 }
+
