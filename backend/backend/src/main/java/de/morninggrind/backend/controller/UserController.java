@@ -1,11 +1,11 @@
 package de.morninggrind.backend.controller;
 
-import de.morninggrind.backend.domain.User;
+import de.morninggrind.backend.dto.UserResponseDto;
 import de.morninggrind.backend.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -16,16 +16,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return this.userService.save(user);
+
+    @GetMapping
+    public List<UserResponseDto> getUsers() {
+        return userService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public UserResponseDto getUser(@PathVariable UUID id) {
+        return userService.getById(id);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable UUID id) {
+        userService.delete(id);
     }
 }
-
-// muss noch angepasst werden
-
-// DTO (RegistrationRequest)
-// kein Passwort im Klartext
-// evtl. Validation
-
-// was ist mit Authorization? Json web token?

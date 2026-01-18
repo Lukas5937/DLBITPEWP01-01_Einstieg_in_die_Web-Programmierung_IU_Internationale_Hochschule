@@ -1,8 +1,6 @@
 package de.morninggrind.backend.service;
 
-import de.morninggrind.backend.domain.Cart;
-import de.morninggrind.backend.domain.CartItem;
-import de.morninggrind.backend.domain.ProductDetails;
+import de.morninggrind.backend.domain.*;
 import de.morninggrind.backend.dto.CartItemDto;
 import de.morninggrind.backend.dto.CartResponseDto;
 import de.morninggrind.backend.repository.CartItemRepository;
@@ -20,11 +18,13 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final ProductDetailsRepository productDetailsRepository;
+    private final UserService userService;
 
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ProductDetailsRepository productDetailsRepository) {
+    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ProductDetailsRepository productDetailsRepository, UserService userService) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.productDetailsRepository = productDetailsRepository;
+        this.userService = userService;
     }
 
     public List<Cart> getAll() {
@@ -72,6 +72,11 @@ public class CartService {
         Cart cart = cartRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cart mit ID " + id + " nicht gefunden"));
 
+        User currentUser = userService.getCurrentUser();
+        if (!cart.getUser().equals(currentUser) && currentUser.getRole() != UserRole.ADMIN) {
+            throw new RuntimeException("Zugriff verweigert");
+        }
+
         List<CartItem> items = cartItemRepository.findByCart(cart);
         return mapToDto(cart, items);
     }
@@ -82,10 +87,14 @@ public class CartService {
     }
 
     public void delete(UUID id) {
-        if (cartRepository.existsById(id)) {
-            cartRepository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Cart mit ID " + id + " nicht gefunden");
+        Cart cart = cartRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cart mit ID " + id + " nicht gefunden"));
+
+        User currentUser = userService.getCurrentUser();
+        if (!cart.getUser().equals(currentUser) && currentUser.getRole() != UserRole.ADMIN) {
+            throw new RuntimeException("Zugriff verweigert");
         }
+
+        cartRepository.delete(cart);
     }
 }
