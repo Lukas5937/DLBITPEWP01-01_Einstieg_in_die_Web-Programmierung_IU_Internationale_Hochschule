@@ -52,11 +52,6 @@ public class OrderService {
         return this.orderRepository.save(order);
     }
 
-    public void delete(UUID id) {
-        Order order = getById(id);
-        orderRepository.delete(order);
-    }
-
     @Transactional
     public Order checkout(UUID cartId) {
         Cart cart = cartRepository.findById(cartId)
