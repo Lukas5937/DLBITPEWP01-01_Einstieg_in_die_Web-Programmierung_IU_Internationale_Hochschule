@@ -7,7 +7,6 @@ import de.morninggrind.backend.repository.CartItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,15 +17,6 @@ public class CartItemService {
     public CartItemService(CartItemRepository cartItemRepository, UserService userService) {
         this.cartItemRepository = cartItemRepository;
         this.userService = userService;
-    }
-
-    public List<CartItem> getAll() {
-        return this.cartItemRepository.findAll();
-    }
-
-    public CartItem getById(UUID id) {
-        return cartItemRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("CartItem mit ID " + id + " nicht gefunden"));
     }
 
     public CartItem save(CartItem cartItem) {

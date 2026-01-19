@@ -27,11 +27,6 @@ public class CartService {
         this.userService = userService;
     }
 
-    public List<Cart> getAll() {
-        return this.cartRepository.findAll();
-    }
-
-
     private CartResponseDto mapToDto(Cart cart, List<CartItem> items) {
 
         List<CartItemDto> itemDtos = items.stream().map(item -> {
@@ -81,10 +76,6 @@ public class CartService {
         return mapToDto(cart, items);
     }
 
-
-    public Cart save(Cart cart) {
-        return this.cartRepository.save(cart);
-    }
 
     public void delete(UUID id) {
         Cart cart = cartRepository.findById(id)

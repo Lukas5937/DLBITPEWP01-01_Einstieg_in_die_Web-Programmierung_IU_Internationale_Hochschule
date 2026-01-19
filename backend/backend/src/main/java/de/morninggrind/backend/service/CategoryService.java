@@ -20,11 +20,6 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
-    public Category getById(UUID id) {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Category mit ID " + id + " nicht gefunden"));
-    }
-
     public Category save(Category category) {
         return this.categoryRepository.save(category);
     }
