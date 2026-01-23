@@ -16,5 +16,5 @@ export const logoutUser = async () => {
 };
 
 export const getCurrentUser = () => {
-  return api.get("/api/auth/me", { withCredentials: true });
+  return api.get("/auth/me", { withCredentials: true });
 };
