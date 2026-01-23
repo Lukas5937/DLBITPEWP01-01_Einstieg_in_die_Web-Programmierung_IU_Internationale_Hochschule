@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { loginUser, registerUser } from "../../api/authApi";
+import { registerUser } from "../../api/authApi";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../context/useAuth";
 
 export default function Auth() {
   const [mode, setMode] = useState("login");
@@ -18,10 +19,12 @@ export default function Auth() {
     defaultValues: { email: "", password: "", confirmPassword: "" },
   });
 
+  const { login } = useAuth();
+
   async function onSubmit(data) {
     try {
       if (mode === "login") {
-        await loginUser(data.email, data.password);
+        await login(data.email, data.password);
         console.log("Login erfolgreich");
         navigate("/");
       } else {

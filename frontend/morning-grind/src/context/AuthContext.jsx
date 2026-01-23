@@ -1,35 +1,45 @@
-/* eslint-disable react-refresh/only-export-components */
-
-import { createContext, useContext, useEffect, useState } from "react";
-import { getCurrentUser, logoutUser } from "../api/authApi";
-
-export const AuthContext = createContext();
+import { useEffect, useState } from "react";
+import { loginUser, getCurrentUser, logoutUser } from "../api/authApi";
+import { AuthContext } from "./AuthContextConfig";
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Check auth status on mount
   useEffect(() => {
-    getCurrentUser()
-      .then((res) => setUser(res.data))
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
+    checkAuth();
   }, []);
 
-  async function logout() {
+  async function checkAuth() {
     try {
-      await logoutUser();
+      const response = await getCurrentUser();
+      setUser(response.data);
+    } catch {
       setUser(null);
-    } catch (err) {
-      console.error("Logout fehlgeschlagen", err);
+    } finally {
+      setLoading(false);
     }
   }
 
-  return (
-    <AuthContext.Provider value={{ user, setUser, logout, loading }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+  async function login(email, password) {
+    const response = await loginUser(email, password);
+    setUser(response);
+    return response;
+  }
 
-export const useAuth = () => useContext(AuthContext);
+  async function logout() {
+    await logoutUser();
+    setUser(null);
+  }
+
+  const value = {
+    user,
+    loading,
+    isAuthenticated: !!user,
+    login,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
