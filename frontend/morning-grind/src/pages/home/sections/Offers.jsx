@@ -32,7 +32,7 @@ export default function Offers() {
         <div className="grid flex-2 grid-cols-3 gap-8">
           {products.map((product) =>
             product.offer ? (
-              <Link to={`/catalogue/${product.id}`}>
+              <Link to={`/catalogue/${product.id}`} key={product.productId}>
                 <Product key={product.productId} product={product} />
               </Link>
             ) : null,

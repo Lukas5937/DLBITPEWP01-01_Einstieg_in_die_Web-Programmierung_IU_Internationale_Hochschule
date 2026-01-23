@@ -1,21 +1,49 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { loginUser, registerUser } from "../../api/authApi";
+import { useNavigate } from "react-router";
 
 export default function Auth() {
   const [mode, setMode] = useState("login");
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     getValues,
     reset,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: { email: "", password: "", confirmPassword: "" },
   });
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit(data) {
+    try {
+      if (mode === "login") {
+        await loginUser(data.email, data.password);
+        console.log("Login erfolgreich");
+        navigate("/");
+      } else {
+        await registerUser(data.email, data.password);
+        console.log("Registrierung erfolgreich");
+        setMode("login");
+        reset();
+      }
+    } catch (err) {
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        setError("email", {
+          type: "manual",
+          message: "Invalid email or password",
+        });
+      } else {
+        setError("email", {
+          type: "manual",
+          message: "Server error, please try again",
+        });
+      }
+      console.error("Fehler beim Authentifizieren", err);
+    }
   }
 
   function changeMode() {
