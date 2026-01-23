@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Product from "../../components/Product";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { getAllProducts } from "../../api/productApi";
 import { categoryColorMap } from "../../helpers/ui-helpers";
 import { getAllCategories } from "../../api/categoriesApi";
@@ -29,6 +29,17 @@ export default function Catalogue() {
     fetchData();
   }, []);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!loading && location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [loading, location.hash]);
+
   if (loading) return <p className="text-3xl text-gray-400">Lade Produkte…</p>;
 
   return (
@@ -42,6 +53,7 @@ export default function Catalogue() {
       {categories.map((category) => (
         <section
           key={category.id}
+          id={`category-${category.id}`}
           className={`${categoryColorMap[category.name]} px-8 pt-16 pb-60`}
         >
           <h2 className="mb-4 text-4xl">{category.name}</h2>
