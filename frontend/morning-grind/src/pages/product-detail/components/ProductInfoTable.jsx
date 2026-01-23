@@ -2,7 +2,7 @@ export default function ProductInfoTable({
   origin,
   roastLevel,
   processing,
-  size,
+  sizeGrams,
 }) {
   return (
     <section className="mb-12 grid grid-cols-2 gap-6 border-y border-gray-200 py-8 md:grid-cols-4">
@@ -20,7 +20,7 @@ export default function ProductInfoTable({
       </div>
       <div>
         <p className="font-body mb-2 text-sm text-gray-500">Size</p>
-        <p className="font-semibold text-gray-900">{size}g</p>
+        <p className="font-semibold text-gray-900">{sizeGrams}g</p>
       </div>
     </section>
   );

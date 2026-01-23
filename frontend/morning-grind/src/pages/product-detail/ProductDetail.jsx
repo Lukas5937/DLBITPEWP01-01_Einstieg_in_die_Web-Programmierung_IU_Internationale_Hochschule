@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { products } from "../../dummy-data/dummy-data";
 import BackButton from "../../components/BackButton";
 import AmountSelector from "../../components/AmountSelector";
 import ProductInfoTable from "./components/ProductInfoTable";
@@ -8,16 +7,29 @@ import FlavourBadge from "./components/FlavourBadge";
 import Button from "../../components/Button";
 import ProductImagePlaceholder from "../../components/ProductImagePlaceholder";
 import { productColorMap } from "../../helpers/ui-helpers";
+import { getProductById } from "../../api/productApi";
 
 export default function ProductDetail() {
   const { productId } = useParams();
-  const product = products.find((p) => p.id === parseInt(productId));
+
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getProductById(productId)
+      .then(setProduct)
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, [productId]);
 
   const [amount, setAmount] = useState(1);
 
   function onAddToCart() {
     console.log("Add to cart button clicked.");
+    console.log("notes: ", product.details.flavorNotes);
   }
+
+  if (loading) return <p className="text-xl text-gray-700">Loading...</p>;
 
   if (!product) {
     return (
@@ -40,12 +52,12 @@ export default function ProductDetail() {
           <section className="flex flex-col justify-center">
             <div className="mb-4">
               <span className="font-body inline-block rounded bg-gray-100 px-4 py-2 text-sm text-gray-700">
-                {product.category}
+                {product.category.name}
               </span>
             </div>
 
             <h1
-              className={`mb-2 text-6xl leading-tight font-semibold italic ${productColorMap[product.id]}`}
+              className={`mb-2 text-6xl leading-tight font-semibold italic ${productColorMap[product.name]}`}
             >
               {product.name.split(" ").map((word, index) => (
                 <span key={index}>
@@ -60,17 +72,17 @@ export default function ProductDetail() {
             </p>
 
             <p className="font-body mb-10 leading-relaxed text-gray-700">
-              {product.info.description}
+              {product.details.description}
             </p>
 
-            <ProductInfoTable {...product.info} />
+            <ProductInfoTable {...product.details} />
 
             <section className="mb-12">
               <h3 className="font-body mb-4 text-sm font-semibold text-gray-700">
                 Flavor Notes
               </h3>
-              <div className="flex flex-wrap gap-3">
-                {product.info.flavorNotes.map((note, index) => (
+              <div className="flex flex-wrap gap-1">
+                {product.details.flavorNotes.map((note, index) => (
                   <FlavourBadge key={index} flavourNote={note} />
                 ))}
               </div>
@@ -78,7 +90,7 @@ export default function ProductDetail() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <AmountSelector amount={amount} changeAmount={setAmount} />
-              <Button onClick={onAddToCart()}>Add to Cart</Button>
+              <Button onClick={onAddToCart}>Add to Cart</Button>
             </div>
           </section>
         </div>
