@@ -1,6 +1,11 @@
 import { Link } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+
+  console.log("Navbar user:", user);
+
   return (
     <nav className="flex items-center justify-between px-8 py-6">
       <Link to="/">
@@ -20,12 +25,20 @@ export default function Navbar() {
       </div>
 
       <div className="font-body flex gap-6">
-        <Link to="/auth" className="text-gray-700 hover:text-black">
-          Login
-        </Link>
-        <Link to="/cart" className="text-gray-700 hover:text-black">
-          Cart (0)
-        </Link>
+        {!user ? (
+          <Link to="/auth" className="text-gray-700 hover:text-black">
+            Login
+          </Link>
+        ) : (
+          <button onClick={logout} className="text-gray-700 hover:text-black">
+            Logout
+          </button>
+        )}
+        {user && (
+          <Link to="/cart" className="text-gray-700 hover:text-black">
+            Cart (0)
+          </Link>
+        )}
       </div>
     </nav>
   );

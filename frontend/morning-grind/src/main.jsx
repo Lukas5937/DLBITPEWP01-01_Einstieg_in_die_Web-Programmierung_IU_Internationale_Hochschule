@@ -8,6 +8,7 @@ import Catalogue from "./pages/catalogue/Catalogue.jsx";
 import ProductDetail from "./pages/product-detail/ProductDetail.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 import Auth from "./pages/auth/Auth.jsx";
+import { PrivateRoute } from "./PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,14 @@ const router = createBrowserRouter([
         element: <Catalogue />,
       },
       { path: "catalogue/:productId", element: <ProductDetail /> },
-      { path: "cart", element: <Cart /> },
+      {
+        path: "cart",
+        element: (
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        ),
+      },
       { path: "auth", element: <Auth /> },
     ],
   },
