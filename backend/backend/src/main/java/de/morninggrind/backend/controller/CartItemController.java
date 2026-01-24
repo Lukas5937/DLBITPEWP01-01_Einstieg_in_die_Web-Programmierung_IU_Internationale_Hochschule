@@ -1,6 +1,7 @@
 package de.morninggrind.backend.controller;
 
 import de.morninggrind.backend.domain.CartItem;
+import de.morninggrind.backend.dto.CartItemRequestDto;
 import de.morninggrind.backend.service.CartItemService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,17 +17,14 @@ public class CartItemController {
     }
 
     @PostMapping
-    public CartItem createCartItem(@RequestBody CartItem cartItem) {
-        return this.cartItemService.save(cartItem);
-    }
-
-    @PutMapping("/{id}")
-    public CartItem updateCartItem(@PathVariable UUID id, @RequestBody CartItem cartItem) {
-        return this.cartItemService.update(id, cartItem);
+    public CartItem addToCart(@RequestBody CartItemRequestDto request) {
+        return cartItemService.addOrUpdateCartItem(request.getProductId(), request.getQuantity());
     }
 
     @DeleteMapping("/{id}")
     public void deleteCartItem(@PathVariable UUID id) {
-        this.cartItemService.delete(id);
+        cartItemService.delete(id);
     }
+
+   
 }

@@ -1,5 +1,8 @@
 package de.morninggrind.backend.config;
 
+import de.morninggrind.backend.security.JwtFilter;
+import de.morninggrind.backend.security.JwtTokenProvider;
+import de.morninggrind.backend.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,11 +14,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -49,12 +52,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+    public JwtFilter jwtFilter(JwtTokenProvider tokenProvider, UserService userService) {
+        return new JwtFilter(tokenProvider, userService);
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter)
             throws Exception {
 
         http
             .cors(cors -> {})
             .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 
                 // public
@@ -102,7 +111,8 @@ public class SecurityConfig {
                 ).hasRole("ADMIN")
 
                 .anyRequest().authenticated()
-            );
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

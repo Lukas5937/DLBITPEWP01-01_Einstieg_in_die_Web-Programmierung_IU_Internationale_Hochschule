@@ -63,14 +63,15 @@ public class CartService {
         return response;
     }
 
-    public CartResponseDto getById(UUID id) {
-        Cart cart = cartRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cart mit ID " + id + " nicht gefunden"));
+    public CartResponseDto getOrCreateForCurrentUser() {
+        User user = userService.getCurrentUser();
 
-        User currentUser = userService.getCurrentUser();
-        if (!cart.getUser().equals(currentUser) && currentUser.getRole() != UserRole.ADMIN) {
-            throw new RuntimeException("Zugriff verweigert");
-        }
+        Cart cart = cartRepository.findByUser(user)
+                .orElseGet(() -> {
+                    Cart newCart = new Cart();
+                    newCart.setUser(user);
+                    return cartRepository.save(newCart);
+                });
 
         List<CartItem> items = cartItemRepository.findByCart(cart);
         return mapToDto(cart, items);
