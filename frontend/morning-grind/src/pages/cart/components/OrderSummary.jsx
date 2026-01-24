@@ -1,7 +1,24 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Button from "../../../components/Button";
+import { checkout } from "../../../api/orderApi";
+import { useCart } from "../../../context/useCart";
 
-export default function OrderSummary({ subtotal, tax, total }) {
+export default function OrderSummary({ subtotal, tax, total, cartId }) {
+  const navigate = useNavigate();
+  const { loadCart } = useCart();
+
+  async function handleCheckout() {
+    try {
+      const order = await checkout(cartId);
+      console.log("Order created:", order);
+      // Reload cart to reflect emptied items
+      await loadCart();
+      navigate("/order-confirmation", { state: { order } });
+    } catch (err) {
+      console.error("Checkout error:", err);
+    }
+  }
+
   return (
     <aside className="h-fit rounded-lg border border-gray-200 p-8">
       <h2 className="mb-6 text-2xl font-semibold">Order Summary</h2>
@@ -23,9 +40,7 @@ export default function OrderSummary({ subtotal, tax, total }) {
       </div>
 
       <div className="text-end">
-        <Button onClick={() => alert("Checkout not yet implemented")}>
-          Proceed to Checkout
-        </Button>
+        <Button onClick={handleCheckout}>Proceed to Checkout</Button>
         <Link
           to="/catalogue"
           className="font-body mt-2 block text-right text-sm text-gray-700 transition hover:text-black"
