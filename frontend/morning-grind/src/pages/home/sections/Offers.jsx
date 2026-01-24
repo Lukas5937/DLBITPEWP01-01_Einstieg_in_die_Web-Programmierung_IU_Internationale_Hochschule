@@ -17,7 +17,7 @@ export default function Offers() {
   if (loading) return <p className="text-xl text-gray-700">Loading...</p>;
   if (!products) return null;
   return (
-    <section className="bg-slate-100 px-8 py-20">
+    <section className="bg-emerald-100 px-8 py-20">
       <div className="flex gap-20">
         <div className="">
           <h4 className="mb-6 text-3xl">Special Offers</h4>

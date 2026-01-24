@@ -6,30 +6,41 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check auth status on mount
   useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await getCurrentUser();
+          setUser(response.data);
+        } catch (err) {
+          console.error("Error fetching current user:", err);
+          localStorage.removeItem("token");
+          setUser(null);
+        }
+      }
+      setLoading(false);
+    };
+
     checkAuth();
   }, []);
 
-  async function checkAuth() {
-    try {
-      const response = await getCurrentUser();
-      setUser(response.data);
-    } catch {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function login(email, password) {
     const response = await loginUser(email, password);
-    setUser(response);
+    console.log("Login response:", response);
+    localStorage.setItem("token", response.token);
+    setUser(response.user);
     return response;
   }
 
   async function logout() {
-    await logoutUser();
+    try {
+      await logoutUser();
+    } catch (err) {
+      // Ignoriere Fehler beim Logout
+      console.error("Logout error:", err);
+    }
+    localStorage.removeItem("token");
     setUser(null);
   }
 
