@@ -34,6 +34,7 @@ public class CartService {
             ProductDetails details = productDetailsRepository.findByProduct(item.getProduct())
                     .orElseThrow(() -> new EntityNotFoundException("Details für Product " + item.getProduct() + " nicht gefunden"));
 
+            dto.setId(item.getId());
             dto.setProductId(item.getProduct().getId());
             dto.setProductName(item.getProduct().getName());
             dto.setCategory(item.getProduct().getCategory());
