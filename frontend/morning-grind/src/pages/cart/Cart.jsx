@@ -1,16 +1,39 @@
-import { useState } from "react";
 import BackButton from "../../components/BackButton";
-import { cartData } from "../../dummy-data/dummy-data";
 import CartItem from "./components/CartItem";
 import OrderSummary from "./components/OrderSummary";
+import { useCart } from "../../context/useCart";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState(cartData);
+  const { cart, loading, addToCart, removeFromCart } = useCart();
 
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.amount,
-    0,
-  );
+  if (loading) {
+    return (
+      <div className="font-display min-h-screen bg-white">
+        <section className="px-8 py-20">
+          <BackButton />
+          <p className="text-xl text-gray-700">Loading cart...</p>
+        </section>
+      </div>
+    );
+  }
+
+  if (!cart || !cart.items || cart.items.length === 0) {
+    return (
+      <div className="font-display min-h-screen bg-white">
+        <section className="px-8 py-20">
+          <BackButton />
+          <h1 className="mb-12 text-5xl">Your Cart</h1>
+          <div className="py-20 text-center">
+            <p className="text-xl text-gray-700">Your cart is empty</p>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  const subtotal = cart.items
+    ? cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    : 0;
 
   const TAX_RATE = 0.19;
   const tax = subtotal * TAX_RATE;
@@ -18,15 +41,11 @@ export default function Cart() {
 
   function updateAmount(productId, newAmount) {
     if (newAmount < 1) return;
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.productId === productId ? { ...item, amount: newAmount } : item,
-      ),
-    );
+    addToCart(productId, newAmount);
   }
 
   function removeItem(productId) {
-    setCartItems((prev) => prev.filter((item) => item.productId !== productId));
+    removeFromCart(productId);
   }
 
   return (
@@ -36,28 +55,27 @@ export default function Cart() {
 
         <h1 className="mb-12 text-5xl">Your Cart</h1>
 
-        {cartItems.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-xl text-gray-700">Your cart is empty</p>
-          </div>
-        ) : (
-          <div className="grid gap-12 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <div className="space-y-6">
-                {cartItems.map((item) => (
-                  <CartItem
-                    key={item.productId}
-                    product={item}
-                    onUpdateAmount={updateAmount}
-                    onRemove={removeItem}
-                  />
-                ))}
-              </div>
+        <div className="grid gap-12 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="space-y-6">
+              {cart.items.map((item) => (
+                <CartItem
+                  key={item.productId}
+                  product={item}
+                  onUpdateAmount={updateAmount}
+                  onRemove={removeItem}
+                />
+              ))}
             </div>
-
-            <OrderSummary subtotal={subtotal} tax={tax} total={total} />
           </div>
-        )}
+
+          <OrderSummary
+            subtotal={subtotal}
+            tax={tax}
+            total={total}
+            cartId={cart.cartId}
+          />
+        </div>
       </section>
     </div>
   );
