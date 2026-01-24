@@ -45,7 +45,7 @@ public class CartItemService {
 
         if (existingItemOpt.isPresent()) {
             CartItem existingItem = existingItemOpt.get();
-            existingItem.setQuantity(existingItem.getQuantity() + quantity);
+            existingItem.setQuantity(quantity);
             return cartItemRepository.save(existingItem);
         } else {
             CartItem newItem = new CartItem();
