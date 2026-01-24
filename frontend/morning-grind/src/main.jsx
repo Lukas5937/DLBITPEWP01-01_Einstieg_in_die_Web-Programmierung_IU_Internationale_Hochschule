@@ -8,6 +8,7 @@ import Catalogue from "./pages/catalogue/Catalogue.jsx";
 import ProductDetail from "./pages/product-detail/ProductDetail.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 import Auth from "./pages/auth/Auth.jsx";
+import OrderConfirmation from "./pages/order-confirmation/OrderConfirmation.jsx";
 import { PrivateRoute } from "./PrivateRoute.jsx";
 
 const router = createBrowserRouter([
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Cart />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "order-confirmation",
+        element: (
+          <PrivateRoute>
+            <OrderConfirmation />
           </PrivateRoute>
         ),
       },
