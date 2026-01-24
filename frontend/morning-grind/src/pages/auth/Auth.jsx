@@ -55,26 +55,26 @@ export default function Auth() {
   }
 
   return (
-    <div className="font-display flex min-h-screen justify-center px-4 py-12">
+    <div className="font-display flex min-h-screen justify-center px-6 py-12 sm:px-4 sm:py-16 lg:py-20">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <p className="font-body text-gray-600">
+          <p className="font-body text-sm text-gray-600 sm:text-base">
             {mode === "login" ? "Welcome back" : "Join our community"}
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="rounded-sm border border-gray-200 bg-white p-8 shadow-sm"
+          className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8"
         >
-          <h2 className="mb-8 text-center text-3xl font-semibold">
+          <h2 className="mb-8 text-center text-2xl font-semibold sm:text-3xl">
             {mode === "login" ? "Login" : "Register"}
           </h2>
 
-          <div className="mb-6">
+          <div className="mb-5 sm:mb-6">
             <label
               htmlFor="email"
-              className="font-body mb-2 block text-sm font-medium text-gray-700"
+              className="font-body mb-2 block text-xs font-medium text-gray-700 sm:text-sm"
             >
               Email
             </label>
@@ -86,15 +86,17 @@ export default function Auth() {
               id="email"
               type="email"
               placeholder="your@email.com"
-              className="font-body w-full border border-gray-300 px-4 py-3 transition focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none"
+              className="font-body w-full rounded border border-gray-300 px-4 py-2 text-sm transition focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none sm:py-3"
             />
-            <p>{errors.email?.message}</p>
+            <p className="font-body mt-1 text-xs text-red-600 sm:text-sm">
+              {errors.email?.message}
+            </p>
           </div>
 
-          <div className="mb-6">
+          <div className="mb-5 sm:mb-6">
             <label
               htmlFor="password"
-              className="font-body mb-2 block text-sm font-medium text-gray-700"
+              className="font-body mb-2 block text-xs font-medium text-gray-700 sm:text-sm"
             >
               Password
             </label>
@@ -109,16 +111,18 @@ export default function Auth() {
               id="password"
               type="password"
               placeholder="••••••••"
-              className="font-body w-full border border-gray-300 px-4 py-3 transition focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none"
+              className="font-body w-full rounded border border-gray-300 px-4 py-2 text-sm transition focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none sm:py-3"
             />
-            <p>{errors.password?.message}</p>
+            <p className="font-body mt-1 text-xs text-red-600 sm:text-sm">
+              {errors.password?.message}
+            </p>
           </div>
 
           {mode === "register" && (
-            <div className="mb-6">
+            <div className="mb-5 sm:mb-6">
               <label
                 htmlFor="confirmPassword"
-                className="font-body mb-2 block text-sm font-medium text-gray-700"
+                className="font-body mb-2 block text-xs font-medium text-gray-700 sm:text-sm"
               >
                 Confirm Password
               </label>
@@ -131,15 +135,17 @@ export default function Auth() {
                 id="confirmPassword"
                 type="password"
                 placeholder="••••••••"
-                className="font-body w-full border border-gray-300 px-4 py-3 transition focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none"
+                className="font-body w-full rounded border border-gray-300 px-4 py-2 text-sm transition focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none sm:py-3"
               />
-              <p>{errors.confirmPassword?.message}</p>
+              <p className="font-body mt-1 text-xs text-red-600 sm:text-sm">
+                {errors.confirmPassword?.message}
+              </p>
             </div>
           )}
 
           <button
             type="submit"
-            className="font-body mb-6 w-full bg-black py-3 font-semibold text-white uppercase transition hover:bg-gray-800"
+            className="font-body mb-6 w-full rounded bg-black py-2 font-semibold text-white uppercase transition hover:bg-gray-800 sm:py-3"
           >
             {mode === "login" ? "Login" : "Register"}
           </button>
@@ -149,11 +155,13 @@ export default function Auth() {
               <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="font-body bg-white px-2 text-gray-500">or</span>
+              <span className="font-body bg-white px-2 text-xs text-gray-500 sm:text-sm">
+                or
+              </span>
             </div>
           </div>
 
-          <p className="font-body text-center text-sm text-gray-600">
+          <p className="font-body text-center text-xs text-gray-600 sm:text-sm">
             {mode === "login"
               ? "Don't have an account? "
               : "Already have an account? "}
