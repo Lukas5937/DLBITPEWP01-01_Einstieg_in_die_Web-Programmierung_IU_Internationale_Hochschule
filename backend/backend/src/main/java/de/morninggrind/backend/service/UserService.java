@@ -6,7 +6,8 @@ import de.morninggrind.backend.dto.LoginRequestDto;
 import de.morninggrind.backend.dto.RegistrationRequestDto;
 import de.morninggrind.backend.dto.UserResponseDto;
 import de.morninggrind.backend.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,10 +20,12 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
     public User register(RegistrationRequestDto request) {
@@ -38,18 +41,28 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void login(LoginRequestDto request, HttpServletRequest httpRequest) {
-        User user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-
-        if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
-            throw new RuntimeException("Invalid credentials");
-        }
-
-        httpRequest.getSession(true).setAttribute("user", user);
+    public User login(LoginRequestDto request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.email(),
+                        request.password()
+                )
+        );
+        return userRepository.findByEmail(request.email())
+                .orElseThrow();
     }
 
-    public UserResponseDto toDto(User user) {
+    public User getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new RuntimeException("Not authenticated");
+        }
+        return userRepository.findByEmail(auth.getName())
+                .orElseThrow();
+    }
+
+     public UserResponseDto toDto(User user) {
         return new UserResponseDto(
                 user.getId(),
                 user.getEmail(),
@@ -59,31 +72,16 @@ public class UserService {
     }
 
     public List<UserResponseDto> getAll() {
-        return this.userRepository.findAll()
-                .stream()
+        return userRepository.findAll().stream()
                 .map(this::toDto)
                 .toList();
     }
 
     public UserResponseDto getById(UUID id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User mit ID " + id + " nicht gefunden"));
-        return toDto(user);
+        return toDto(userRepository.findById(id).orElseThrow());
     }
 
     public void delete(UUID id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("User mit ID " + id + " nicht gefunden");
-        }
-    }
-
-    public User getCurrentUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            throw new RuntimeException("Nicht angemeldet");
-        }
-        return (User) auth.getPrincipal();
+        userRepository.deleteById(id);
     }
 }

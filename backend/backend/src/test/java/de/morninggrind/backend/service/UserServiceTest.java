@@ -5,20 +5,32 @@ import de.morninggrind.backend.domain.UserRole;
 import de.morninggrind.backend.dto.LoginRequestDto;
 import de.morninggrind.backend.dto.RegistrationRequestDto;
 import de.morninggrind.backend.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 public class UserServiceTest {
+
+
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+        }
+    }
 
     @Autowired
     private UserService userService;
@@ -28,6 +40,11 @@ public class UserServiceTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @BeforeEach
+    void setUp() {
+        userRepository.deleteAll();
+    }
 
 
     @Test
@@ -51,7 +68,7 @@ public class UserServiceTest {
         String correctPassword = "correct123";
         String wrongPassword = "wrong123";
 
-        User user = new User();
+        de.morninggrind.backend.domain.User user = new de.morninggrind.backend.domain.User();
         user.setEmail(email);
         user.setPasswordHash(passwordEncoder.encode(correctPassword));
         user.setRole(UserRole.USER);
@@ -59,10 +76,9 @@ public class UserServiceTest {
         userRepository.save(user);
 
         LoginRequestDto request = new LoginRequestDto(email, wrongPassword);
-        HttpServletRequest httpRequest = mock(HttpServletRequest.class);
 
-        assertThatThrownBy(() ->
-                userService.login(request, httpRequest)
-        ).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> userService.login(request))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Bad credentials");
     }
 }
