@@ -7,13 +7,13 @@ export default function OrderConfirmation() {
 
   if (!order) {
     return (
-      <div className="font-display min-h-screen bg-white">
+      <div className="min-h-screen bg-white">
         <section className="px-8 py-20">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-4 text-2xl font-semibold">No order found</h1>
             <Link
               to="/catalogue"
-              className="inline-block rounded-full bg-black px-8 py-3 font-semibold text-white transition hover:bg-gray-800"
+              className="font-body hover:bg-gray-800flex-1 bg-black px-8 py-3 font-semibold text-white uppercase transition sm:flex-none"
             >
               Back to Catalogue
             </Link>
@@ -24,7 +24,7 @@ export default function OrderConfirmation() {
   }
 
   return (
-    <div className="font-display min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <section className="px-8 py-20">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 text-center">
@@ -43,7 +43,7 @@ export default function OrderConfirmation() {
                 />
               </svg>
             </div>
-            <h1 className="mb-2 text-4xl font-semibold">Order Confirmed!</h1>
+            <h1 className="mb-2 text-4xl font-semibold">Order Confirmed</h1>
             <p className="font-body text-gray-600">
               Thank you for your order. We'll send you a confirmation email
               shortly.
@@ -62,7 +62,7 @@ export default function OrderConfirmation() {
           <div className="mt-8 text-center">
             <Link
               to="/catalogue"
-              className="inline-block rounded-full bg-black px-8 py-3 font-semibold text-white transition hover:bg-gray-800"
+              className="font-body hover:bg-gray-800flex-1 bg-black px-8 py-3 font-semibold text-white uppercase transition sm:flex-none"
             >
               Continue Shopping
             </Link>
