@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,7 +15,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -34,43 +37,73 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
         config.setAllowCredentials(true);
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
-        config.addExposedHeader("Authorization");
-        config.setMaxAge(3600L);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
+
         http
-                .cors(cors -> {
-                })
-                .csrf(csrf -> csrf.disable())
+            .cors(cors -> {})
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
 
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/categories/**").permitAll()
+                // public
+                .requestMatchers(
+                        "/api/auth/register",
+                        "/api/auth/login"
+                ).permitAll()
 
-                        .requestMatchers("/api/auth/logout").authenticated()
-                        .requestMatchers("/api/auth/me").authenticated()
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/api/products/**",
+                        "/api/categories/**"
+                ).permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/categories/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                // auth required
+                .requestMatchers(
+                        "/api/auth/me",
+                        "/api/auth/logout",
+                        "/api/orders/**",
+                        "/api/carts/**",
+                        "/api/cart-items/**"
+                ).authenticated()
 
-                        .requestMatchers("/api/orders/**", "/api/carts/**", "/api/cart-items/**").authenticated()
-                        .anyRequest().authenticated()
-                );
+                // admin
+                .requestMatchers(
+                        "/api/users/**"
+                ).hasRole("ADMIN")
+
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/api/products/**",
+                        "/api/categories/**"
+                ).hasRole("ADMIN")
+
+                .requestMatchers(
+                        HttpMethod.PUT,
+                        "/api/products/**",
+                        "/api/categories/**"
+                ).hasRole("ADMIN")
+
+                .requestMatchers(
+                        HttpMethod.DELETE,
+                        "/api/products/**",
+                        "/api/categories/**"
+                ).hasRole("ADMIN")
+
+                .anyRequest().authenticated()
+            );
+
         return http.build();
     }
 }
