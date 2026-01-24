@@ -8,12 +8,17 @@ import Button from "../../components/Button";
 import ProductImagePlaceholder from "../../components/ProductImagePlaceholder";
 import { productColorMap } from "../../helpers/ui-helpers";
 import { getProductById } from "../../api/productApi";
+import { useAuth } from "../../context/useAuth";
+import { useCart } from "../../context/useCart";
 
 export default function ProductDetail() {
   const { productId } = useParams();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { user } = useAuth();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     getProductById(productId)
@@ -26,7 +31,7 @@ export default function ProductDetail() {
 
   function onAddToCart() {
     console.log("Add to cart button clicked.");
-    console.log("notes: ", product.details.flavorNotes);
+    addToCart(product.productId, amount);
   }
 
   if (loading) return <p className="text-xl text-gray-700">Loading...</p>;
@@ -90,7 +95,9 @@ export default function ProductDetail() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <AmountSelector amount={amount} changeAmount={setAmount} />
-              <Button onClick={onAddToCart}>Add to Cart</Button>
+              <Button onClick={onAddToCart} disabled={!user}>
+                Add to Cart
+              </Button>
             </div>
           </section>
         </div>
