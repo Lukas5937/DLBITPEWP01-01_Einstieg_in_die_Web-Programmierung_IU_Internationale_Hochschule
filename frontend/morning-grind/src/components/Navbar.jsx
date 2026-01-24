@@ -1,8 +1,10 @@
 import { Link } from "react-router";
 import { useAuth } from "../context/useAuth";
+import { useCart } from "../context/useCart";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const { cart } = useCart();
 
   console.log("Navbar user:", user);
 
@@ -36,7 +38,7 @@ export default function Navbar() {
         )}
         {user && (
           <Link to="/cart" className="text-gray-700 hover:text-black">
-            Cart (0)
+            Cart ({cart && cart.items ? cart.items.length : 0})
           </Link>
         )}
       </div>
