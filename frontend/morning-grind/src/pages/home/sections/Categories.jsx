@@ -24,27 +24,34 @@ export default function Categories() {
     Specials: Specials,
   };
 
-  if (loading) return <p className="text-xl text-gray-700">Loading...</p>;
+  if (loading)
+    return <p className="px-6 text-xl text-gray-700 sm:px-8">Loading...</p>;
   if (!categories) return null;
 
   return (
-    <section className="px-8 py-20">
-      <h3 className="mb-16 text-center text-4xl">Categories</h3>
-      <div className="grid grid-cols-4 gap-8">
-        {categories.map((category) => (
-          <Link
-            to={`/catalogue#category-${category.id}`}
-            key={category.id}
-            className="group cursor-pointer"
-          >
-            <img
-              src={categoryImages[category.name]}
-              alt={category.name}
-              className="mb-4 h-96 w-full object-cover"
-            />
-            <p className="text-xl text-gray-800">{category.name}</p>
-          </Link>
-        ))}
+    <section className="px-6 py-16 sm:px-8 lg:py-20">
+      <div className="mx-auto max-w-6xl">
+        <h3 className="mb-12 text-center text-3xl sm:mb-16 sm:text-4xl">
+          Categories
+        </h3>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
+          {categories.map((category) => (
+            <Link
+              to={`/catalogue#category-${category.id}`}
+              key={category.id}
+              className="group cursor-pointer"
+            >
+              <img
+                src={categoryImages[category.name]}
+                alt={category.name}
+                className="mb-4 h-56 w-full rounded-lg object-cover transition duration-200 ease-out group-hover:scale-[1.02] sm:h-64 md:h-72 lg:h-80 xl:h-96"
+              />
+              <p className="text-lg text-gray-800 sm:text-xl">
+                {category.name}
+              </p>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

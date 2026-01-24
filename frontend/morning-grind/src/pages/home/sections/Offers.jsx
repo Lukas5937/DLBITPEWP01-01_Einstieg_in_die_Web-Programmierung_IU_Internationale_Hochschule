@@ -14,14 +14,15 @@ export default function Offers() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p className="text-xl text-gray-700">Loading...</p>;
+  if (loading)
+    return <p className="px-6 text-xl text-gray-700 sm:px-8">Loading...</p>;
   if (!products) return null;
   return (
-    <section className="bg-slate-100 px-8 py-20">
-      <div className="flex gap-20">
-        <div className="">
-          <h4 className="mb-6 text-3xl">Special Offers</h4>
-          <p className="font-body mb-4 text-gray-500">
+    <section className="bg-slate-100 px-6 py-16 sm:px-8 lg:py-20">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
+        <div className="text-center lg:text-left">
+          <h4 className="mb-4 text-2xl sm:mb-6 sm:text-3xl">Special Offers</h4>
+          <p className="font-body mb-3 text-gray-500 sm:mb-4">
             Discover our limited-time coffee deals.
           </p>
           <p className="font-body text-gray-500">
@@ -29,7 +30,7 @@ export default function Offers() {
           </p>
         </div>
 
-        <div className="grid flex-2 grid-cols-3 gap-8">
+        <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {products.map((product) =>
             product.offer ? (
               <Link to={`/catalogue/${product.id}`} key={product.productId}>

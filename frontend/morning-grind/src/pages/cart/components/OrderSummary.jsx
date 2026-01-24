@@ -20,30 +20,36 @@ export default function OrderSummary({ subtotal, tax, total, cartId }) {
   }
 
   return (
-    <aside className="h-fit rounded-lg border border-gray-200 p-8">
-      <h2 className="mb-6 text-2xl font-semibold">Order Summary</h2>
+    <aside className="h-fit rounded-lg border border-gray-200 p-6 sm:p-8">
+      <h2 className="mb-4 text-xl font-semibold sm:mb-6 sm:text-2xl">
+        Order Summary
+      </h2>
 
-      <div className="space-y-4 border-b border-gray-200 pb-6">
-        <div className="flex justify-between text-gray-700">
+      <div className="space-y-3 border-b border-gray-200 pb-5 sm:space-y-4 sm:pb-6">
+        <div className="flex justify-between text-sm text-gray-700 sm:text-base">
           <span className="font-body">Subtotal</span>
           <span>€{subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-gray-700">
+        <div className="flex justify-between text-sm text-gray-700 sm:text-base">
           <span className="font-body">Tax (19%)</span>
           <span>€{tax.toFixed(2)}</span>
         </div>
       </div>
 
-      <div className="mt-6 mb-8 flex justify-between">
-        <span className="text-lg font-semibold">Total</span>
-        <span className="text-2xl font-bold">€{total.toFixed(2)}</span>
+      <div className="mt-5 mb-6 flex justify-between sm:mt-6 sm:mb-8">
+        <span className="font-semibold text-gray-900">Total</span>
+        <span className="text-xl font-bold sm:text-2xl">
+          €{total.toFixed(2)}
+        </span>
       </div>
 
-      <div className="text-end">
-        <Button onClick={handleCheckout}>Proceed to Checkout</Button>
+      <div className="flex flex-col gap-3">
+        <Button onClick={handleCheckout} className="w-full">
+          Proceed to Checkout
+        </Button>
         <Link
           to="/catalogue"
-          className="font-body mt-2 block text-right text-sm text-gray-700 transition hover:text-black"
+          className="font-body text-center text-sm text-gray-700 transition hover:text-black"
         >
           Continue Shopping
         </Link>

@@ -9,9 +9,9 @@ export default function Cart() {
   if (loading) {
     return (
       <div className="font-display min-h-screen bg-white">
-        <section className="px-8 py-20">
+        <section className="px-6 py-12 sm:px-8 sm:py-16 lg:py-20">
           <BackButton />
-          <p className="text-xl text-gray-700">Loading cart...</p>
+          <p className="text-base text-gray-700 sm:text-lg">Loading cart...</p>
         </section>
       </div>
     );
@@ -20,11 +20,15 @@ export default function Cart() {
   if (!cart || !cart.items || cart.items.length === 0) {
     return (
       <div className="font-display min-h-screen bg-white">
-        <section className="px-8 py-20">
+        <section className="px-6 py-12 sm:px-8 sm:py-16 lg:py-20">
           <BackButton />
-          <h1 className="mb-12 text-5xl">Your Cart</h1>
-          <div className="py-20 text-center">
-            <p className="text-xl text-gray-700">Your cart is empty</p>
+          <h1 className="mb-8 text-3xl sm:mb-12 sm:text-4xl lg:text-5xl">
+            Your Cart
+          </h1>
+          <div className="py-16 text-center sm:py-20">
+            <p className="text-base text-gray-700 sm:text-lg">
+              Your cart is empty
+            </p>
           </div>
         </section>
       </div>
