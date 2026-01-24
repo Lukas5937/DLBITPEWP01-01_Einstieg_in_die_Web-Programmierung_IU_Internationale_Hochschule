@@ -70,12 +70,15 @@ public class OrderService {
             throw new IllegalStateException("Cart is empty");
         }
 
-        BigDecimal total = items.stream()
+        BigDecimal subtotal = items.stream()
                 .map(item ->
                         item.getProduct().getPrice()
                                 .multiply(BigDecimal.valueOf(item.getQuantity()))
                 )
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal TAX_RATE = new BigDecimal("0.19");
+        BigDecimal total = subtotal.add(subtotal.multiply(TAX_RATE));
 
         Order order = new Order();
         order.setUser(cart.getUser());
