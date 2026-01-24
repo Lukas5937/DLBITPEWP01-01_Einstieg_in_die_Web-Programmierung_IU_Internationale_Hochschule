@@ -42,12 +42,13 @@ public class UserService {
     }
 
     public User login(LoginRequestDto request) {
-        authenticationManager.authenticate(
+        Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.email(),
                         request.password()
                 )
         );
+        SecurityContextHolder.getContext().setAuthentication(auth);
         return userRepository.findByEmail(request.email())
                 .orElseThrow();
     }
@@ -60,6 +61,11 @@ public class UserService {
         }
         return userRepository.findByEmail(auth.getName())
                 .orElseThrow();
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
      public UserResponseDto toDto(User user) {

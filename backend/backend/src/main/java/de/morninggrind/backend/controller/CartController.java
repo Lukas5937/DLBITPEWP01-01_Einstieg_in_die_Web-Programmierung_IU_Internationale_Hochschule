@@ -15,9 +15,9 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping("{id}")
-    public CartResponseDto getCart(@PathVariable UUID id) {
-        return this.cartService.getById(id);
+    @GetMapping("/me")
+    public CartResponseDto getMyCart() {
+        return cartService.getOrCreateForCurrentUser();
     }
 
     @DeleteMapping("{id}")
