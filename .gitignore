@@ -1,0 +1,15 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Node
+node_modules/
+dist/
+build/
+
+# Spring / Java
+target/
+*.log
+
+# OS
+.DS_Store
