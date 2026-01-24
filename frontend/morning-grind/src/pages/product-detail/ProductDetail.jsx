@@ -28,10 +28,13 @@ export default function ProductDetail() {
   }, [productId]);
 
   const [amount, setAmount] = useState(1);
+  const [added, setAdded] = useState(false);
 
   function onAddToCart() {
     console.log("Add to cart button clicked.");
     addToCart(product.productId, amount);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   }
 
   if (loading) return <p className="text-xl text-gray-700">Loading...</p>;
@@ -95,9 +98,16 @@ export default function ProductDetail() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <AmountSelector amount={amount} changeAmount={setAmount} />
-              <Button onClick={onAddToCart} disabled={!user}>
-                Add to Cart
-              </Button>
+              <div className="flex items-center">
+                <Button onClick={onAddToCart} disabled={!user}>
+                  Add to Cart
+                </Button>
+                {added && (
+                  <span className="ml-4 text-sm font-medium text-green-800">
+                    Product added to cart!
+                  </span>
+                )}
+              </div>
             </div>
           </section>
         </div>

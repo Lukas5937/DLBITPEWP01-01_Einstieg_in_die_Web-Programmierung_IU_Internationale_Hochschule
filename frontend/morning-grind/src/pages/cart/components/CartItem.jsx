@@ -8,12 +8,12 @@ export default function CartItem({ product, onUpdateAmount, onRemove }) {
   }
 
   function handleRemoveItem() {
-    onRemove(product.productId);
+    onRemove(product.id);
   }
 
   return (
     <article
-      key={product.id}
+      key={product.productId}
       className="flex gap-6 border-b border-gray-200 pb-6"
     >
       <div className="h-24 w-24">
@@ -23,11 +23,13 @@ export default function CartItem({ product, onUpdateAmount, onRemove }) {
       <div className="flex flex-1 justify-between">
         <Link to={`/catalogue/${product.productId}`}>
           <h3 className="mb-1 text-lg font-semibold text-gray-900">
-            {product.name}
+            {product.productName}
           </h3>
-          <p className="font-body text-sm text-gray-500">{product.category}</p>
           <p className="font-body text-sm text-gray-500">
-            {product.info.origin}, {product.info.processing}
+            {product.category.name}
+          </p>
+          <p className="font-body text-sm text-gray-500">
+            {product.origin}, {product.processing}
           </p>
         </Link>
 
@@ -35,12 +37,15 @@ export default function CartItem({ product, onUpdateAmount, onRemove }) {
           <div className="ml-auto text-right">
             <div className="flex gap-8">
               <AmountSelector
-                amount={product.amount}
+                amount={product.quantity}
                 changeAmount={handleAmountChange}
               />
               <div>
                 <p className="font-semibold text-gray-900">
-                  €{(product.price * product.amount).toFixed(2)}
+                  €
+                  {product.itemTotal
+                    ? product.itemTotal.toFixed(2)
+                    : (product.price * product.quantity).toFixed(2)}
                 </p>
                 <button
                   onClick={handleRemoveItem}
