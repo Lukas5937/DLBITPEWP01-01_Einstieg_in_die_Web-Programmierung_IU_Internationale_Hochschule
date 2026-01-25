@@ -1,4 +1,5 @@
 package de.morninggrind.backend.security;
+import jakarta.annotation.PostConstruct;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -12,11 +13,18 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
-    @Value("${jwt.secret:ThisIsAVerySecureSecretKeyFor256BitHmacSHA256Algorithm}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
     @Value("${jwt.expiration:86400000}")
     private long jwtExpiration; // 24 hours
+
+    @PostConstruct
+public void validateJwtSecret() {
+    if (jwtSecret == null || jwtSecret.isBlank()) {
+        throw new IllegalStateException("jwt.secret must be set");
+    }
+}
 
     public String generateToken(String email) {
         Date now = new Date();
