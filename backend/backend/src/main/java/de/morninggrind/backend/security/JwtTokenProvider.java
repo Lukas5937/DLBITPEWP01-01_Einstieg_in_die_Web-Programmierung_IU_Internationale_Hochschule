@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     private long jwtExpiration; // 24 hours
 
     @PostConstruct
-public void validateJwtSecret() {
+    public void validateJwtSecret() {
     if (jwtSecret == null || jwtSecret.isBlank()) {
         throw new IllegalStateException("jwt.secret must be set");
     }
