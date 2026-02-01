@@ -37,7 +37,6 @@ export default function AuthProvider({ children }) {
     try {
       await logoutUser();
     } catch (err) {
-      // Ignoriere Fehler beim Logout
       console.error("Logout error:", err);
     }
     localStorage.removeItem("token");
