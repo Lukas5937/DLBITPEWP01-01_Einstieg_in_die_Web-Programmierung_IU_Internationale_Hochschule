@@ -1,6 +1,5 @@
 package de.morninggrind.backend.service;
 
-import de.morninggrind.backend.domain.User;
 import de.morninggrind.backend.repository.UserRepository;
 import lombok.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @NonNull
     public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getEmail())
-                .password(user.getPasswordHash())
-                .roles(user.getRole().name())
-                .build();
     }
 }
