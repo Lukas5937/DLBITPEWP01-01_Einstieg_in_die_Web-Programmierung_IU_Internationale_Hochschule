@@ -81,9 +81,6 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-200 pt-6 text-center text-sm text-gray-600">
-          © {new Date().getFullYear()} Morning Grind. All rights reserved.
-        </div>
       </div>
     </footer>
   );
