@@ -66,7 +66,6 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 
-                // public
                 .requestMatchers(
                         "/api/auth/register",
                         "/api/auth/login"
@@ -78,7 +77,6 @@ public class SecurityConfig {
                         "/api/categories/**"
                 ).permitAll()
 
-                // auth required
                 .requestMatchers(
                         "/api/auth/me",
                         "/api/auth/logout",
@@ -87,7 +85,6 @@ public class SecurityConfig {
                         "/api/cart-items/**"
                 ).authenticated()
 
-                // admin
                 .requestMatchers(
                         "/api/users/**"
                 ).hasRole("ADMIN")
