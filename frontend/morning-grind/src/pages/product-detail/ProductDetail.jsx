@@ -6,7 +6,7 @@ import ProductInfoTable from "./components/ProductInfoTable";
 import FlavourBadge from "./components/FlavourBadge";
 import Button from "../../components/Button";
 import ProductImagePlaceholder from "../../components/ProductImagePlaceholder";
-import { productColorMap } from "../../helpers/ui-helpers";
+import { categoryColorMap, productColorMap } from "../../helpers/ui-helpers";
 import { getProductById } from "../../api/productApi";
 import { useAuth } from "../../context/useAuth";
 import { useCart } from "../../context/useCart";
@@ -61,7 +61,9 @@ export default function ProductDetail() {
 
             <section className="flex flex-col justify-center">
               <div className="mb-4">
-                <span className="font-body inline-block rounded bg-gray-100 px-4 py-2 text-sm text-gray-700">
+                <span
+                  className={`${categoryColorMap[product.category.name]} font-body inline-block rounded px-4 py-2 text-sm text-gray-700 capitalize`}
+                >
                   {product.category.name}
                 </span>
               </div>

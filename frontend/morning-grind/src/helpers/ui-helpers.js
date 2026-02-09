@@ -1,28 +1,28 @@
 export const productColorMap = {
-  "Midnight Origin Blend": "text-cyan-950",
-  "Velvet Dark Roast": "text-cyan-900",
-  "Bold City Shot": "text-cyan-800",
-  "Golden Hour Shot": "text-cyan-700",
+  "Amber Lion Roast": "text-cyan-950",
+  "Night Cocoa Shot": "text-cyan-900",
+  "Copper River Crema": "text-cyan-800",
+  "Velvet Dusk Blend": "text-cyan-700",
 
-  "Bright Morning Bloom": "text-orange-950",
-  "Cloud Nine Cup": "text-orange-900",
-  "Gentle River Brew": "text-orange-800",
-  "Northern Light Cup": "text-orange-700",
+  "Golden Bloom Cup": "text-orange-950",
+  "Cedar Apple Drift": "text-orange-900",
+  "Bright Coast Day": "text-orange-800",
+  "Silk Citrus Rise": "text-orange-700",
 
-  "Silent Night Cup": "text-indigo-950",
-  "Smooth Evening Cup": "text-indigo-900",
-  "Calm Mind Brew": "text-indigo-800",
-  "Late Sunset Cup": "text-indigo-700",
+  "Quiet Hazel Cup": "text-indigo-950",
+  "Soft Cocoa Calm": "text-indigo-900",
+  "Evening Maple Sip": "text-indigo-800",
+  "Gentle Berry Glow": "text-indigo-700",
 
-  "Ethiopian Sunrise Reserve": "text-rose-950",
-  "Panama Geisha Lot": "text-rose-900",
-  "Fermented Cacao Dream": "text-rose-800",
-  "Volcanic Soil Selection": "text-rose-700",
+  "Jade Orchid Lot": "text-rose-950",
+  "Aurora Honey Drop": "text-rose-900",
+  "Crystal Peach Bloom": "text-rose-800",
+  "Saffron Sunrise Microlot": "text-rose-700",
 };
 
 export const categoryColorMap = {
-  Espresso: "bg-sky-50",
-  Filter: "bg-blue-50",
-  Decaf: "bg-violet-50",
-  Specials: "bg-slate-100",
+  espresso: "bg-sky-50",
+  filter: "bg-blue-50",
+  decaf: "bg-violet-50",
+  specials: "bg-slate-100",
 };

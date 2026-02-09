@@ -18,10 +18,10 @@ export default function Categories() {
   }, []);
 
   const categoryImages = {
-    Espresso: Espresso,
-    Filter: Filter,
-    Decaf: Decaf,
-    Specials: Specials,
+    espresso: Espresso,
+    filter: Filter,
+    decaf: Decaf,
+    specials: Specials,
   };
 
   if (loading)
@@ -46,7 +46,7 @@ export default function Categories() {
                 alt={category.name}
                 className="mb-4 h-56 w-full rounded-lg object-cover transition duration-200 ease-out group-hover:scale-[1.02] sm:h-64 md:h-72 lg:h-80 xl:h-96"
               />
-              <p className="text-lg text-gray-800 sm:text-xl">
+              <p className="text-lg text-gray-800 capitalize sm:text-xl">
                 {category.name}
               </p>
             </Link>

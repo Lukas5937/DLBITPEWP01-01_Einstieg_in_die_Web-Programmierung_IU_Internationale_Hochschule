@@ -59,7 +59,7 @@ export default function Catalogue() {
           className={`${categoryColorMap[category.name]} px-6 pt-12 pb-20 sm:px-8 lg:pt-16 lg:pb-40`}
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="mb-3 text-3xl sm:mb-4 sm:text-4xl">
+            <h2 className="mb-3 text-3xl capitalize sm:mb-4 sm:text-4xl">
               {category.name}
             </h2>
             <p className="font-body mb-8 text-gray-600 sm:text-gray-500">
