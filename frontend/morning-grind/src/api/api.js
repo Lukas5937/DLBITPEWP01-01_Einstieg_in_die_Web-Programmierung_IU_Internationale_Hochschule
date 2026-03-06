@@ -8,7 +8,7 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     config.headers = config.headers || {};
-    if (token) {
+    if (token && token !== "null" && token !== "undefined") {
       config.headers["Authorization"] = `Bearer ${token}`;
       console.log("Authorization header set with token");
     }
