@@ -40,7 +40,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173"
+        ));
         config.setAllowCredentials(true);
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
@@ -66,6 +68,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                 .requestMatchers(
                         "/api/auth/register",
                         "/api/auth/login"
@@ -73,7 +77,9 @@ public class SecurityConfig {
 
                 .requestMatchers(
                         HttpMethod.GET,
+                        "/api/products",
                         "/api/products/**",
+                        "/api/categories",
                         "/api/categories/**"
                 ).permitAll()
 
