@@ -104,3 +104,30 @@ jobs:
             ghcr.io/lukas5937/morning-grind-frontend:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to production
+    needs: [publish-backend, publish-frontend]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Ansible
+        run: pipx install --include-deps ansible
+
+      - name: Write SSH key
+        run: |
+          install -m 600 /dev/null /tmp/deploy_key
+          echo "${{ secrets.VM_SSH_PRIVATE_KEY }}" > /tmp/deploy_key
+
+      - name: Write vault password
+        run: echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > /tmp/vault_pass
+
+      - name: Run Ansible playbook
+        working-directory: ansible
+        run: |
+          ansible-playbook -i inventory.ini deploy.yml \
+            --private-key /tmp/deploy_key \
+            --vault-password-file /tmp/vault_pass \
+            --ssh-common-args='-o StrictHostKeyChecking=no'
