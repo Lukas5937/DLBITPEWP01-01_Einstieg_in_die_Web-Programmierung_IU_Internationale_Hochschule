@@ -14,5 +14,8 @@ target/
 
 # OS
 .DS_Store
+
+# Ansible
+ansible/.vault_pass
 # Documentation
 structure*.md
