@@ -24,9 +24,6 @@ export default function Navbar() {
           <Link to="/catalogue" className="text-gray-700 hover:text-black">
             Catalogue
           </Link>
-          <Link to="/" className="text-gray-700 hover:text-black">
-            Search
-          </Link>
         </div>
 
         <div className="font-body flex flex-wrap items-center justify-center gap-4 sm:justify-end sm:gap-6">

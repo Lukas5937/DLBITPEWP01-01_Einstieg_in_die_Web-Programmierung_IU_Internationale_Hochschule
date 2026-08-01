@@ -18,10 +18,10 @@ export default function Categories() {
   }, []);
 
   const categoryImages = {
-    espresso: Espresso,
-    filter: Filter,
-    decaf: Decaf,
-    specials: Specials,
+    Espresso: Espresso,
+    Filter: Filter,
+    Decaf: Decaf,
+    Specials: Specials,
   };
 
   if (loading)
