@@ -163,7 +163,7 @@ FROM (VALUES ('Midnight Origin Blend', 'Dark'),
 INSERT INTO app_user (id, email, password_hash, role, created_at)
 VALUES (gen_random_uuid(),
         'admin@morninggrind.de',
-        '$2a$10$7QpZlZQZQz8Z8Z8Z8Z8Z8eK9FJp1x2KpF9z0QeZb6Hn9y',
+        '$2a$10$1Eof8PE.g1TqBcYW.WCEcuyJ1ZDdMBKZs8MGMmInT3kSk/Kcn6Lmm',
         'ADMIN',
         now());
 
