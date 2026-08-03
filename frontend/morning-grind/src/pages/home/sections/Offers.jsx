@@ -33,7 +33,7 @@ export default function Offers() {
         <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {products.map((product) =>
             product.offer ? (
-              <Link to={`/catalogue/${product.id}`} key={product.productId}>
+              <Link to={`/catalogue/${product.productId}`} key={product.productId}>
                 <Product key={product.productId} product={product} />
               </Link>
             ) : null,
